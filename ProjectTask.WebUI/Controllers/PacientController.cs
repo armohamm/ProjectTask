@@ -25,7 +25,14 @@ namespace ProjectTask.WebUI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new PacientViewModel());
+            return PartialView(nameof(Create), new PacientViewModel());
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var dto = Service.GetDTO(id);
+            return PartialView(nameof(Edit), dto);
         }
 
         [HttpPost]
