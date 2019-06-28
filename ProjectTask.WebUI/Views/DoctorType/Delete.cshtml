@@ -7,6 +7,7 @@
     </button>
 </div>
 
+<form asp-action="Delete">
 <div class="modal-body">
     <div class="row">
         <div class="col-md-12">
@@ -18,14 +19,11 @@
                     @Html.DisplayFor(model => model.Name)
                 </dd> 
             </dl>
-            <form asp-action="Delete">
                 <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Name" />                
+                <input name="IsValid" type="hidden" value="True" />
                 <input type="submit" value="Удалить" class="btn btn-danger" data-save="modal" />
-            </form>
         </div>
     </div>
-
 </div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</form>

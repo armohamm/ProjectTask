@@ -65,13 +65,13 @@ namespace ProjectTask.WebUI.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<IActionResult> DeletePost(DoctorTypeViewModel dto)
         {
             ViewData["Title"] = "Удалить из списка";
 
-            await Service.DeleteAsync(id);
+            await Service.DeleteAsync(dto.Id);
 
-            return RedirectToAction(nameof(Index));
+            return PartialView(nameof(Delete), dto);
         }
     }
 }
