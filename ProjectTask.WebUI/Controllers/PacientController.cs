@@ -25,6 +25,8 @@ namespace ProjectTask.WebUI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewData["Title"] = "Создать пациента";
+
             return PartialView(nameof(Create), new PacientViewModel());
         }
 
@@ -32,7 +34,10 @@ namespace ProjectTask.WebUI.Controllers
         public IActionResult Edit(int id)
         {
             var dto = Service.GetDTO(id);
-            return PartialView(nameof(Edit), dto);
+
+            ViewData["Title"] = "Изменить пациента";
+
+            return PartialView(nameof(Create), dto);
         }
 
         [HttpPost]
@@ -46,7 +51,7 @@ namespace ProjectTask.WebUI.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(nameof(Create), dto);
+            return PartialView(nameof(Create), dto);
         }
 
 

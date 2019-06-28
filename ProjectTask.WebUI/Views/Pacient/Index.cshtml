@@ -2,141 +2,90 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a class="btn btn-sm btn-success" asp-action="Create">
-            <span class="text viewDialog">Добавить</span>
+        <a asp-action="Create" class="btn btn-primary modalItems" data-toggle="modal" data-target="#exampleModal">
+            <span class="text">Добавить</span>
         </a>
     </div>
 </div>
 
-<div id='myModal'>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div id='myModalContent'></div>
+        <div class="modal-content" id="dialogContent">
         </div>
     </div>
 </div>
 
-<p> @Html.ActionLink("Добавить", "Create", "Pacient", new { }, new { @class = "viewDialog", data_dialog_title = "Создание модели" })</p>
-
-
-<div id="modDialog" class="modal fade">
-    <div id="dialogContent" class="modal-dialog"></div>
-</div>
-<ul>
-    @foreach (var c in Model)
-    {
-        <li>
-            @Html.ActionLink(c.FirstName, "Edit", new { id = c.Id }, new { @class = "compItem" })
-        </li>
-    }
-</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IIN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IIN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SurName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    <a class="modalItems" asp-action="Edit" asp-route-id="@(item.Id)">
+                        <span style="text-align">Изменить</span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @section scripts{
-    @*<script src="~/js/site.js"></script>*@
     <script type="text/javascript">
-
         $(function () {
             $.ajaxSetup({ cache: false });
-            $(".compItem").click(function (e) {
-
+            $(".modalItems").click(function (e) {
                 e.preventDefault();
                 $.get(this.href, function (data) {
                     $('#dialogContent').html(data);
-                    $('#modDialog').modal('show');
+                    $("#exampleModal").modal('toggle');
                 });
             });
         })
     </script>
-    <script>
-       $(document).ready(function () {
 
-        $.ajaxSetup({ cache: false });
-
-        $(".viewDialog").on("click", function (e) {
-            $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    buttons: {
-                        "Сохранить": function () {
-                            $.ajax({
-                             url: "@Url.Action("Create", "Pacient")",
-                             type: "POST",
-                             data: $('form').serialize(),
-                             datatype: "json",
-                             success: function (result) {
-                                 $("#dialogContent").html(result);
-                                }
-                            });
-                        }
-                    }
-                });
-        });
-    });
-
-    </script>
 }
-
-
-@*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IIN)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SurName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IIN)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SurName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PhoneNumber)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
