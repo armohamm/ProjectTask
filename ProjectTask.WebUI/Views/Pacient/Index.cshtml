@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<PacientViewModel>
 
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard" asp-area="">Cправочник</a></li>
+    <li class="active breadcrumb-item">@ViewData["Title"]</li>
+</ol>
+
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <a asp-action="Create" class="btn btn-primary modalItems" data-toggle="modal" data-target="#modal-placeholder">
@@ -37,9 +43,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -68,6 +72,11 @@
                 <td>
                     <a class="modalItems" asp-action="Edit" asp-route-id="@(item.Id)">
                         <span class="text">Изменить</span>
+                    </a>
+                </td>
+                <td>
+                    <a class="modalItems" asp-action="Delete" asp-route-id="@(item.Id)">
+                        <span class="text">Удалить</span>
                     </a>
                 </td>
             </tr>

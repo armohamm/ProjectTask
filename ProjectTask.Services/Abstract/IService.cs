@@ -11,5 +11,7 @@ namespace ProjectTask.Services.Abstract
         TViewModel GetDTO(int id);
 
         Task SaveAsync(TViewModel viewModel);
+
+        Task DeleteAsync(int id);
     }
 }

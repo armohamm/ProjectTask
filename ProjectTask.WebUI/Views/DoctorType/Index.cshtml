@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ProjectTask.ViewModels.DoctorTypeViewModel>
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item" ><a asp-action="Index" asp-controller="Dashboard" asp-area="">Cправочник</a></li>
+    <li class="active breadcrumb-item">@ViewData["Title"]</li>
+</ol>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a asp-action="Create" class="btn btn-primary modalItems" data-toggle="modal" data-target="#modal-placeholder">
+            <span class="text">Добавить</span>
+        </a>
+    </div>
+</div>
+<div>
+    <div class="modal fade" id="modal-placeholder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modalContent">
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a class="modalItems" asp-action="Edit" asp-route-id="@(item.Id)">
+                    <span class="text">Изменить</span>
+                </a>
+            </td>
+            <td>
+                <a class="modalItems" asp-action="Delete" asp-route-id="@(item.Id)">
+                    <span class="text">Удалить</span>
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

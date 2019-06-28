@@ -9,42 +9,40 @@ using ProjectTask.WebUI.Controllers.Abstract;
 
 namespace ProjectTask.WebUI.Controllers
 {
-    public class PacientController : ServicedController<PacientService>
+    public class DoctorTypeController : ServicedController<DoctorTypeService>
     {
-        public PacientController(PacientService service) : base(service)
+        public DoctorTypeController(DoctorTypeService service) : base(service)
         {
         }
 
         public IActionResult Index()
         {
-            var dtos = Service.GetDTOs();
-
-            ViewData["Title"] = "Список пациентов";
-
-            return View(dtos);
+            var dto = Service.GetDTOs();
+            ViewData["Title"] = "Список специальностей";
+            return View(dto);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["Title"] = "Создать пациента";
+            ViewData["Title"] = "Создать специальность";
 
-            return PartialView(nameof(Create), new PacientViewModel());
+            return PartialView(nameof(Create), new DoctorTypeViewModel());
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewData["Title"] = "Изменить пациента";
-
             var dto = Service.GetDTO(id);
+
+            ViewData["Title"] = "Изменить специальность";
 
             return PartialView(nameof(Create), dto);
         }
 
         [HttpPost]
         [ActionName("Save")]
-        public async Task<IActionResult> EditPostAsync(PacientViewModel dto)
+        public async Task<IActionResult> EditPostAsync(DoctorTypeViewModel dto)
         {
             if (ModelState.IsValid)
             {
@@ -54,10 +52,11 @@ namespace ProjectTask.WebUI.Controllers
             return PartialView(nameof(Create), dto);
         }
 
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            ViewData["Title"] = "Удалить из списка пациента";
+            ViewData["Title"] = "Удалить из списка специльностей";
 
             var dto = Service.GetDTO(id);
 
@@ -66,13 +65,13 @@ namespace ProjectTask.WebUI.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
-        public async Task<IActionResult> DeletePost(PacientViewModel dto)
+        public async Task<IActionResult> DeletePost(int id)
         {
             ViewData["Title"] = "Удалить из списка";
 
-            await Service.DeleteAsync(dto.Id);
-            
-            return PartialView(nameof(Delete), dto);
+            await Service.DeleteAsync(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

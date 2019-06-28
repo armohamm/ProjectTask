@@ -1,0 +1,36 @@
+﻿@model PacientViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewData["Title"]</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form asp-action="Delete">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IIN)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IIN)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
+                </dl>
+                <input type="hidden" asp-for="Id" readonly="readonly" />
+                <input type="hidden" asp-for="FirstName" readonly="readonly" />
+                <input type="hidden" asp-for="IIN" readonly="readonly" />
+                <input name="IsValid" type="hidden" value="True" />
+                <input type="submit" value="Удалить" class="btn btn-danger" data-save="modal" />
+            </div>
+        </div>
+    </div>
+</form>

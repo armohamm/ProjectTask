@@ -10,42 +10,38 @@ using System.Threading.Tasks;
 
 namespace ProjectTask.Services
 {
-    public class PacientService : CRUDServiceBase<Pacient, PacientViewModel>
+    public class DoctorTypeService : CRUDServiceBase<DoctorType, DoctorTypeViewModel>
     {
-        public PacientService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public DoctorTypeService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
-        public override PacientViewModel GetDTO(int id)
+
+        public override DoctorTypeViewModel GetDTO(int id)
         {
             var dbEntity = GetActualRecords().Where(x => x.Id == id).FirstOrDefault();
 
-            return new PacientViewModel(dbEntity);
+            return new DoctorTypeViewModel(dbEntity);
         }
 
-        public override IEnumerable<PacientViewModel> GetDTOs()
+        public override IEnumerable<DoctorTypeViewModel> GetDTOs()
         {
-            return GetActualRecords().Select(x => new PacientViewModel(x));
+            return GetActualRecords().Select(x => new DoctorTypeViewModel(x));
         }
 
-        public override async Task SaveAsync(PacientViewModel dto)
+        public override async Task SaveAsync(DoctorTypeViewModel viewModel)
         {
-            await DoInTransactionScope(SaveAsynCore, dto);
+            await DoInTransactionScope(SaveAsynCore, viewModel);
         }
 
-        private async Task SaveAsynCore(PacientViewModel dto)
+        private async Task SaveAsynCore(DoctorTypeViewModel dto)
         {
             var entityTuple = GetOrCreateEntity(GetActualRecords(), x => x.Id == dto.Id);
 
             var entity = entityTuple.Item2;
 
-            entity.Address = dto.Address;
-            entity.FirstName = dto.FirstName;
-            entity.IIN = dto.IIN;
+            entity.Name = dto.Name;
             entity.LastEditedAt = DateTime.Now;
-            entity.LastName = dto.LastName;
-            entity.PhoneNumber = dto.PhoneNumber;
-            entity.SurName = dto.SurName;
 
             if (entityTuple.Item1)
             {
@@ -58,5 +54,7 @@ namespace ProjectTask.Services
 
             await UnitOfWork.CommitAsync().ConfigureAwait(false);
         }
+
+     
     }
 }
