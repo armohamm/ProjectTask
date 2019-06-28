@@ -2,15 +2,16 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a asp-action="Create" class="btn btn-primary modalItems" data-toggle="modal" data-target="#exampleModal">
+        <a asp-action="Create" class="btn btn-primary modalItems" data-toggle="modal" data-target="#modal-placeholder">
             <span class="text">Добавить</span>
         </a>
     </div>
 </div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" id="dialogContent">
+<div>
+    <div class="modal fade" id="modal-placeholder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modalContent">
+            </div>
         </div>
     </div>
 </div>
@@ -66,26 +67,10 @@
                 </td>
                 <td>
                     <a class="modalItems" asp-action="Edit" asp-route-id="@(item.Id)">
-                        <span style="text-align">Изменить</span>
+                        <span class="text">Изменить</span>
                     </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-@section scripts{
-    <script type="text/javascript">
-        $(function () {
-            $.ajaxSetup({ cache: false });
-            $(".modalItems").click(function (e) {
-                e.preventDefault();
-                $.get(this.href, function (data) {
-                    $('#dialogContent').html(data);
-                    $("#exampleModal").modal('toggle');
-                });
-            });
-        })
-    </script>
-
-}

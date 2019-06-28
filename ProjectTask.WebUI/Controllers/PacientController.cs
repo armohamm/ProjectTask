@@ -47,8 +47,6 @@ namespace ProjectTask.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 await Service.SaveAsync(dto);
-
-                return RedirectToAction(nameof(Index));
             }
 
             return PartialView(nameof(Create), dto);

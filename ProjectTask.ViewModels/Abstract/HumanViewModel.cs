@@ -10,16 +10,16 @@ namespace ProjectTask.ViewModels.Abstract
     public abstract class HumanViewModel : EntityViewModel
     {
         [DisplayName("ИИН")]
-        [RegularExpression(@"^\d{16}$", ErrorMessage = "ИИН не действителен. ИИН должен содержать 16 цифр. Пример: 123456123456")]
-        [Required]
+        [RegularExpression(@"^[0-9]{12}$", ErrorMessage = "ИИН не действителен. ИИН должен содержать 12 цифр. Пример: 123456123456")]
+        [Required(ErrorMessage ="Заполните ИИН")]
         public string IIN { get; set; }
 
         [DisplayName("Имя")]
-        [Required]
+        [Required(ErrorMessage = "Заполните Имя")]
         public string FirstName { get; set; }
 
         [DisplayName("Отчество")]
-        [Required]
+        [Required(ErrorMessage = "Заполните Отчество")]
         public string LastName { get; set; }
 
         [DisplayName("Фамилия")]
