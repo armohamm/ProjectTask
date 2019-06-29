@@ -1,0 +1,38 @@
+﻿@model IEnumerable<VisitViewModel>
+@{
+    var doctorList = (IEnumerable<DoctorViewModel>)ViewData["doctors"];
+    var doctorTypeList = (IEnumerable<DoctorTypeViewModel>)ViewData["doctor_types"];
+    var pacientList = (IEnumerable<PacientViewModel>)ViewData["pacients"];
+}
+
+@(await Html.PartialAsync("_Add"))
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a asp-action="Create" class="btn btn-primary modalItems" data-toggle="modal" data-target="#modal-placeholder">
+            <span class="text">Добавить</span>
+        </a>
+    </div>
+</div>
+<div>
+    <div class="modal fade" id="modal-placeholder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modalContent">
+            </div>
+        </div>
+    </div>
+</div>
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => doctorList.Where(x => x.Id == model.DoctorId).Select(x => x.SurName).FirstOrDefault());
+        columns.Add(model => doctorTypeList.Where(x => x.Id == model.DoctorTypeId).Select(x => x.Name).FirstOrDefault());
+        columns.Add(model => pacientList.Where(x => x.Id == model.PacientId).Select(x => x.SurName).FirstOrDefault());
+        columns.Add(model => model.Diagnosis);
+        columns.Add(model => model.Complaints);
+        columns.Add(model => model.VisitDate);
+    })
+    .ApplyDefaults();
+)

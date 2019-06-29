@@ -27,7 +27,7 @@ namespace ProjectTask.WebUI.Controllers
         {
             ViewData["Title"] = "Создать специальность";
 
-            return PartialView(nameof(Create), new DoctorTypeViewModel());
+            return View(new DoctorTypeViewModel());
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@ namespace ProjectTask.WebUI.Controllers
 
             ViewData["Title"] = "Изменить специальность";
 
-            return PartialView(nameof(Create), dto);
+            return View(nameof(Create), dto);
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace ProjectTask.WebUI.Controllers
                 await Service.SaveAsync(dto);
             }
 
-            return PartialView(nameof(Create), dto);
+            return RedirectToAction(nameof(Index));
         }
 
 
@@ -60,18 +60,16 @@ namespace ProjectTask.WebUI.Controllers
 
             var dto = Service.GetDTO(id);
 
-            return PartialView(nameof(Delete), dto);
+            return View(dto);
         }
 
         [HttpPost]
         [ActionName("Delete")]
         public async Task<IActionResult> DeletePost(DoctorTypeViewModel dto)
         {
-            ViewData["Title"] = "Удалить из списка";
-
             await Service.DeleteAsync(dto.Id);
 
-            return PartialView(nameof(Delete), dto);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

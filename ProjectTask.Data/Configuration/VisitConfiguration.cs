@@ -48,6 +48,10 @@ namespace ProjectTask.Data.Configuration
                 .HasColumnName("doctor_id")
                 .IsRequired();
 
+            entity.Property(x => x.DoctorTypeId)
+                .HasColumnName("doctor_type_id")
+                .IsRequired();
+
             entity.Property(x => x.PacientId)
                 .HasColumnName("pacient_id")
                 .IsRequired();
@@ -56,6 +60,11 @@ namespace ProjectTask.Data.Configuration
             entity.HasOne(x => x.Doctor)
                 .WithMany(x => x.Visits)
                 .HasForeignKey(x => x.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(x => x.DoctorType)
+                .WithMany(x => x.Visits)
+                .HasForeignKey(x => x.DoctorTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasOne(x => x.Pacient)

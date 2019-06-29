@@ -52,6 +52,7 @@ namespace ProjectTask.WebUI
             services.AddTransient<PacientService>();
             services.AddTransient<DoctorTypeService>();
             services.AddTransient<DoctorService>();
+            services.AddTransient<VisitService>();
 
         }
 

@@ -38,7 +38,7 @@ namespace ProjectTask.Services
 
         private async Task Save(DoctorViewModel dto)
         {
-            var entityTuple = GetOrCreateEntity<Doctor>(GetActualRecords(), x => x.Id == dto.Id);
+            var entityTuple = GetOrCreateEntity<Doctor>(GetActualRecords().Include(x => x.RelDoctorDoctorTypes), x => x.Id == dto.Id);
             var entity = entityTuple.Item2;
 
             entity.IIN = dto.IIN;
@@ -65,24 +65,24 @@ namespace ProjectTask.Services
 
         private void EditDoctorTypes(Doctor entity, DoctorViewModel view)
         {
-            ICollection<int> selectedIds = view.DoctorTypeIds;
+            ICollection<int> selectedDoctorTypeIds = view.DoctorTypeIds;
 
-            var currentEntityIds = entity.RelDoctorDoctorTypes
+            var currentDoctorTypeIds = entity.RelDoctorDoctorTypes
                 .Where(p => p.DoctorId == entity.Id)
                 .ToArray()
                 ;
 
-            foreach (var i in currentEntityIds)
+            foreach (var i in currentDoctorTypeIds)
             {
-                if (!selectedIds.Contains(i.DoctorTypeId))
+                if (!selectedDoctorTypeIds.Contains(i.DoctorTypeId))
                 {
                     entity.RelDoctorDoctorTypes.Remove(i);
                 }
             }
 
-            foreach (int i in selectedIds)
+            foreach (int i in selectedDoctorTypeIds)
             {
-                if (!currentEntityIds.Any(x => x.DoctorTypeId == i && x.DoctorId == entity.Id))
+                if (!currentDoctorTypeIds.Any(x => x.DoctorTypeId == i && x.DoctorId == entity.Id))
                 {
                     entity.RelDoctorDoctorTypes.Add(new RelDoctorDoctorType
                     {

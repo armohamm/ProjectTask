@@ -9,6 +9,11 @@ namespace ProjectTask.ViewModels
 {
     public class DoctorTypeViewModel
     {
+        public int Id { get; set; }
+
+        [Display(Name = "Наименование специальности")]
+        public string Name { get; set; }
+
         public DoctorTypeViewModel(DoctorType entity)
         {
             if (entity != null)
@@ -23,9 +28,6 @@ namespace ProjectTask.ViewModels
 
         }
 
-        public int Id { get; set; }
-
-        [DisplayName("Наименование специальности")]
-        public string Name { get; set; }
+    
     }
 }

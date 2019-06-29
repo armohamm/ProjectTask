@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-theme.css" />
-
+    <link rel="stylesheet" href="~/css/MvcGrid/mvc-grid.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/jquery.datetimepicker.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/MvcGrid/datetimepicker.css" />
 
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProjectTask.WebUI</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Visit" asp-action="Index">ProjectTask.WebUI</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,7 +33,6 @@
         </nav>
     </header>
     <div class="container">
-        <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -39,12 +40,14 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; strelokask, 2019 - ProjectTask.WebUI
+            &copy; strelokask, 2019
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/MvcGrid/mvc-grid.js"></script>
+    <script src="~/js/jquery.datetimepicker.full.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)

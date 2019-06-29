@@ -10,6 +10,9 @@ namespace ProjectTask.Data.Models
         public virtual Doctor Doctor { get; set; }
         public int DoctorId { get; set; }
 
+        public virtual DoctorType DoctorType { get; set; }
+        public int DoctorTypeId { get; set; }
+
         public virtual Pacient Pacient { get; set; }
         public int PacientId { get; set; }
 

@@ -9,21 +9,31 @@ using ProjectTask.WebUI.Controllers.Abstract;
 
 namespace ProjectTask.WebUI.Controllers
 {
-    public class DoctorController : ServicedController<DoctorService>
+    public class VisitController : ServicedController<VisitService>
     {
+        private DoctorService DoctorService { get; }
+        private PacientService PacientService { get; }
         public DoctorTypeService DoctorTypeService { get; }
 
-        public DoctorController(DoctorService service
+        public VisitController(VisitService service
+            , DoctorService doctorService
+            , PacientService pacientService
             , DoctorTypeService doctorTypeService) : base(service)
         {
+            DoctorService = doctorService;
+            PacientService = pacientService;
             DoctorTypeService = doctorTypeService;
         }
+
 
         public IActionResult Index()
         {
             var dtos = Service.GetDTOs();
 
-            ViewData["Title"] = "Список врачей";
+            ViewData["Title"] = "Список карт посещений";
+            ViewData["doctors"] = DoctorService.GetDTOs();
+            ViewData["doctor_types"] = DoctorTypeService.GetDTOs();
+            ViewData["pacients"] = PacientService.GetDTOs();
 
             return View(dtos);
         }
@@ -31,24 +41,27 @@ namespace ProjectTask.WebUI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["Title"] = "Добавление в список";
-            ViewData["types"] = DoctorTypeService.GetDTOs();
-            return View(new DoctorViewModel());
+            ViewData["doctors"] = DoctorService.GetDTOs();
+            ViewData["pacients"] = PacientService.GetDTOs();
+            ViewData["Title"] = "Создать карточку";
+
+            return View(new VisitViewModel());
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewData["Title"] = "Редактирование";
-            ViewData["types"] = DoctorTypeService.GetDTOs();
             var dto = Service.GetDTO(id);
+            ViewData["doctors"] = DoctorService.GetDTOs();
+            ViewData["pacients"] = PacientService.GetDTOs();
+            ViewData["Title"] = "Редактировать карточку";
 
             return View(nameof(Create), dto);
         }
 
         [HttpPost]
         [ActionName("Save")]
-        public async Task<IActionResult> EditPost(DoctorViewModel dto)
+        public async Task<IActionResult> EditPost(VisitViewModel dto)
         {
             if (ModelState.IsValid)
             {
@@ -61,9 +74,9 @@ namespace ProjectTask.WebUI.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            ViewData["Title"] = "Удалить из списка";
-
             var dto = Service.GetDTO(id);
+
+            ViewData["Title"] = "Удалить карточку";
 
             return View(dto);
         }

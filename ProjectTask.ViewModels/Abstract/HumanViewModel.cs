@@ -9,26 +9,26 @@ namespace ProjectTask.ViewModels.Abstract
 {
     public abstract class HumanViewModel : EntityViewModel
     {
-        [DisplayName("ИИН")]
+        [Display(Name = "ИИН")]
         [RegularExpression(@"^[0-9]{12}$", ErrorMessage = "ИИН не действителен. ИИН должен содержать 12 цифр. Пример: 123456123456")]
         [Required(ErrorMessage ="Заполните ИИН")]
         public string IIN { get; set; }
 
-        [DisplayName("Имя")]
+        [Display(Name = "Имя")]
         [Required(ErrorMessage = "Заполните Имя")]
         public string FirstName { get; set; }
 
-        [DisplayName("Отчество")]
+        [Display(Name = "Отчество")]
         [Required(ErrorMessage = "Заполните Отчество")]
         public string LastName { get; set; }
 
-        [DisplayName("Фамилия")]
+        [Display(Name = "Фамилия")]
         public string SurName { get; set; }
 
-        [DisplayName("Адрес")]
+        [Display(Name = "Адрес")]
         public string Address { get; set; }
 
-        [DisplayName("Номер телефона")]
+        [Display(Name = "Номер телефона")]
         [RegularExpression(@"^[+]\d{11}$", ErrorMessage = "Номер телефон не действителен. Пример: +77051234567")]
         public string PhoneNumber { get; set; }
     }
