@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<VisitViewModel>
-@{
-    var doctorList = (IEnumerable<DoctorViewModel>)ViewData["doctors"];
-    var doctorTypeList = (IEnumerable<DoctorTypeViewModel>)ViewData["doctor_types"];
-    var pacientList = (IEnumerable<PacientViewModel>)ViewData["pacients"];
-}
 
-@(await Html.PartialAsync("_Add"))
+@{
+    var doctorList = ViewData["doctors"] as IEnumerable<DoctorViewModel>;
+    var doctorTypeList = ViewData["doctor_types"] as IEnumerable<DoctorTypeViewModel>;
+    var pacientList = ViewData["pacients"] as IEnumerable<PacientViewModel>;
+}
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a asp-action="Create" class="btn btn-primary modalItems" data-toggle="modal" data-target="#modal-placeholder">
+        <a asp-action="Create" class="btn btn-primary modalItems" >
             <span class="text">Добавить</span>
         </a>
     </div>
@@ -27,12 +26,51 @@
     .Grid(Model)
     .Build(columns =>
     {
-        columns.Add(model => doctorList.Where(x => x.Id == model.DoctorId).Select(x => x.SurName).FirstOrDefault());
-        columns.Add(model => doctorTypeList.Where(x => x.Id == model.DoctorTypeId).Select(x => x.Name).FirstOrDefault());
-        columns.Add(model => pacientList.Where(x => x.Id == model.PacientId).Select(x => x.SurName).FirstOrDefault());
+        columns.Add(model => doctorList.Where(x => x.Id == model.DoctorId).Select(x => x.SurName).FirstOrDefault())
+            .Titled("Фамилия врача");
+        columns.Add(model => doctorTypeList.Where(x => x.Id == model.DoctorTypeId).Select(x => x.Name).FirstOrDefault())
+            .Titled("Специальность врача");
+        columns.Add(model => pacientList.Where(x => x.Id == model.PacientId).Select(x => x.SurName).FirstOrDefault())
+            .Titled("Фамилия пациента");
         columns.Add(model => model.Diagnosis);
         columns.Add(model => model.Complaints);
         columns.Add(model => model.VisitDate);
+        columns.Add(model => "<a class=\"modalItems\" href='" + Url.Action("Edit", new { model.Id }) + "'>Изменить</a>")
+            .Encoded(false);
+        columns.Add(model => "<a class=\"modalItems\" href='" + Url.Action("Delete", new { model.Id }) + "'>Удалить</a>")
+            .Encoded(false);
     })
-    .ApplyDefaults();
+    .ApplyDefaults()
 )
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".modalItems").click(function (e) {
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#modalContent').html(data);
+                    $("#modal-placeholder").modal('toggle');
+                });
+            })
+
+            var placeholderElement = $('#modal-placeholder');
+
+            placeholderElement.on('click', '[data-save="modal"]', function (event) {
+                event.preventDefault();
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                var dataToSend = form.serialize();
+                $.post(actionUrl, dataToSend).done(function (data) {
+                    var newBody = $('.modal-body', data);
+                    placeholderElement.find('.modal-body').replaceWith(newBody);
+                    var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+                    if (isValid) {
+                        location.reload();
+                        //placeholderElement.modal('hide');
+                    }
+                });
+            });
+        });
+    </script>}

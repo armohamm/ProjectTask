@@ -54,7 +54,14 @@ namespace ProjectTask.Services
                 UnitOfWork.Update(entity);
             }
 
-            await UnitOfWork.CommitAsync().ConfigureAwait(false);
+            try
+            {
+                await UnitOfWork.CommitAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                var a = ex.Message;
+            }
         }
     }
 }

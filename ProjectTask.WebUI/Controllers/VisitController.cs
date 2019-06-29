@@ -43,9 +43,10 @@ namespace ProjectTask.WebUI.Controllers
         {
             ViewData["doctors"] = DoctorService.GetDTOs();
             ViewData["pacients"] = PacientService.GetDTOs();
+            ViewData["doctor_types"] = DoctorTypeService.GetDTOs();
             ViewData["Title"] = "Создать карточку";
 
-            return View(new VisitViewModel());
+            return PartialView(nameof(Create), new VisitViewModel() { VisitDate = DateTime.Now});
         }
 
         [HttpGet]
@@ -54,9 +55,10 @@ namespace ProjectTask.WebUI.Controllers
             var dto = Service.GetDTO(id);
             ViewData["doctors"] = DoctorService.GetDTOs();
             ViewData["pacients"] = PacientService.GetDTOs();
+            ViewData["doctor_types"] = DoctorTypeService.GetDTOs();
             ViewData["Title"] = "Редактировать карточку";
 
-            return View(nameof(Create), dto);
+            return PartialView(nameof(Create), dto);
         }
 
         [HttpPost]
@@ -67,8 +69,12 @@ namespace ProjectTask.WebUI.Controllers
             {
                 await Service.SaveAsync(dto);
             }
+            ViewData["doctors"] = DoctorService.GetDTOs();
+            ViewData["pacients"] = PacientService.GetDTOs();
+            ViewData["doctor_types"] = DoctorTypeService.GetDTOs();
+            ViewData["Title"] = dto.Id > 0 ? "Редактировать карточку" : "Создать карточку";
 
-            return RedirectToAction(nameof(Index));
+            return PartialView(nameof(Create), dto);
         }
 
         [HttpGet]
@@ -78,7 +84,7 @@ namespace ProjectTask.WebUI.Controllers
 
             ViewData["Title"] = "Удалить карточку";
 
-            return View(dto);
+            return PartialView(dto);
         }
 
         [HttpPost]
@@ -87,7 +93,7 @@ namespace ProjectTask.WebUI.Controllers
         {
             await Service.DeleteAsync(id);
 
-            return RedirectToAction(nameof(Index));
+            return PartialView(nameof(Delete));
         }
     }
 }

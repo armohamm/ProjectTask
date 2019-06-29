@@ -20,6 +20,25 @@ namespace ProjectTask.Services.DatabaseSeed
 
         public async Task SeedAsync()
         {
+            if (!UnitOfWork.Select<DoctorType>().Any())
+            {
+                var dto = new DoctorType()
+                {
+                    Name = "Все может вылечить",
+                    LastEditedAt = DateTime.Now,
+                    CreateDate = DateTime.Now,
+                };
+
+                UnitOfWork.Insert<DoctorType>(dto);
+                dto = new DoctorType()
+                {
+                    Name = "Ничего не может",
+                    LastEditedAt = DateTime.Now,
+                    CreateDate = DateTime.Now,
+                };
+
+                UnitOfWork.Insert<DoctorType>(dto);
+            }
             if (!UnitOfWork.Select<Doctor>().Any())
             {
                 var doctor = new Doctor()
@@ -27,24 +46,28 @@ namespace ProjectTask.Services.DatabaseSeed
                     Address = "Nur-Sultan",
                     IIN = "123123456456",
                     FirstName = "Aibolit",
-                    LastName = "Doctor",
+                    LastName = "Доктор1",
+                    SurName = "Попов",
+                    LastEditedAt = DateTime.Now,
+                    CreateDate = DateTime.Now,
+                };
+
+                UnitOfWork.Insert<Doctor>(doctor);
+
+                doctor = new Doctor()
+                {
+                    Address = "Nur-Sultan",
+                    IIN = "123123456456",
+                    FirstName = "Aibolit",
+                    LastName = "Доктор2",
+                    SurName = "Смирнов",
                     LastEditedAt = DateTime.Now,
                     CreateDate = DateTime.Now,
                 };
 
                 UnitOfWork.Insert<Doctor>(doctor);
             }
-            if (!UnitOfWork.Select<DoctorType>().Any())
-            {
-                var dto = new DoctorType()
-                {
-                    Name = "Все может",
-                    LastEditedAt = DateTime.Now,
-                    CreateDate = DateTime.Now,
-                };
 
-                UnitOfWork.Insert<DoctorType>(dto);
-            }
 
             if (!UnitOfWork.Select<Pacient>().Any())
             {
@@ -54,6 +77,19 @@ namespace ProjectTask.Services.DatabaseSeed
                     IIN = "123123456456",
                     FirstName = "Bolat",
                     LastName = "Pacient",
+                    SurName = "Пациент1",
+                    LastEditedAt = DateTime.Now,
+                    CreateDate = DateTime.Now,
+                };
+
+                UnitOfWork.Insert<Pacient>(dto);
+                dto = new Pacient()
+                {
+                    Address = "Nur-Sultan",
+                    IIN = "123123456456",
+                    FirstName = "Bolat2",
+                    LastName = "Pacient2",
+                    SurName = "Пациент2",
                     LastEditedAt = DateTime.Now,
                     CreateDate = DateTime.Now,
                 };
