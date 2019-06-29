@@ -10,8 +10,8 @@ using ProjectTask.Data;
 namespace ProjectTask.Data.Migrations
 {
     [DbContext(typeof(ProjectTaskDBContext))]
-    [Migration("20190627085322_migrate_models")]
-    partial class migrate_models
+    [Migration("20190629095145_migrate models")]
+    partial class migratemodels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace ProjectTask.Data.Migrations
                         .IsRequired()
                         .HasColumnName("IIN")
                         .IsFixedLength(true)
-                        .HasMaxLength(16);
+                        .HasMaxLength(12);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnName("is_deleted");
@@ -124,7 +124,7 @@ namespace ProjectTask.Data.Migrations
                         .IsRequired()
                         .HasColumnName("IIN")
                         .IsFixedLength(true)
-                        .HasMaxLength(16);
+                        .HasMaxLength(12);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnName("is_deleted");

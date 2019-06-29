@@ -43,7 +43,7 @@ namespace ProjectTask.Data.Migrations
                         .IsRequired()
                         .HasColumnName("IIN")
                         .IsFixedLength(true)
-                        .HasMaxLength(16);
+                        .HasMaxLength(12);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnName("is_deleted");

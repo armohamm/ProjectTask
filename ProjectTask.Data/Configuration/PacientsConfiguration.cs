@@ -31,8 +31,6 @@ namespace ProjectTask.Data.Configuration
             #region default configuration for human
             entity.Property(x => x.IIN)
                 .HasColumnName("IIN")
-                .HasMaxLength(12)
-                .IsFixedLength()
                 .IsRequired();
 
             entity.Property(x => x.Address)

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectTask.Data.Migrations
 {
-    public partial class migrate_models : Migration
+    public partial class migratemodels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,7 +21,7 @@ namespace ProjectTask.Data.Migrations
                 name: "IIN",
                 table: "pacients",
                 fixedLength: true,
-                maxLength: 16,
+                maxLength: 12,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -42,7 +42,7 @@ namespace ProjectTask.Data.Migrations
                     is_deleted = table.Column<bool>(nullable: false),
                     create_date = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "(getdate())"),
                     last_edit_at = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "(getdate())"),
-                    IIN = table.Column<string>(fixedLength: true, maxLength: 16, nullable: false),
+                    IIN = table.Column<string>(fixedLength: true, maxLength: 12, nullable: false),
                     first_name = table.Column<string>(nullable: false),
                     last_name = table.Column<string>(nullable: true),
                     surname = table.Column<string>(nullable: true),
@@ -167,7 +167,7 @@ namespace ProjectTask.Data.Migrations
                 nullable: true,
                 oldClrType: typeof(string),
                 oldFixedLength: true,
-                oldMaxLength: 16);
+                oldMaxLength: 12);
 
             migrationBuilder.AlterColumn<string>(
                 name: "first_name",

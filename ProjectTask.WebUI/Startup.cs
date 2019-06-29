@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ProjectTask.Data;
 using ProjectTask.Data.Core;
 using ProjectTask.Services;
+using ProjectTask.Services.DatabaseSeed;
 
 namespace ProjectTask.WebUI
 {
@@ -43,8 +44,14 @@ namespace ProjectTask.WebUI
             services.AddTransient<DbContext, ProjectTaskDBContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+
+            services.AddTransient<DatabaseSeeder>();
+            services.AddTransient<DataSeeder>();
+            services.AddTransient<DatabaseMigrator>();
+
             services.AddTransient<PacientService>();
             services.AddTransient<DoctorTypeService>();
+            services.AddTransient<DoctorService>();
 
         }
 

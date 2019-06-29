@@ -16,8 +16,10 @@
         var actionUrl = form.attr('action');
         var dataToSend = form.serialize();
         $.post(actionUrl, dataToSend).done(function (data) {
+            alert('AM HERE');
             var newBody = $('.modal-body', data);
             placeholderElement.find('.modal-body').replaceWith(newBody);
+            alert(newBody.find('[name="IsValid"]').val());
             var isValid = newBody.find('[name="IsValid"]').val() == 'True';
             if (isValid) {
                 location.reload();

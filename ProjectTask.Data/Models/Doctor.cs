@@ -7,8 +7,8 @@ namespace ProjectTask.Data.Models
 {
     public class Doctor : Human
     {
-        public ICollection<RelDoctorDoctorType> RelDoctorDoctorTypes { get; set; }
+        public ICollection<RelDoctorDoctorType> RelDoctorDoctorTypes { get; set; } = new List<RelDoctorDoctorType>();
 
-        public ICollection<Visit> Visits { get; set; }
+        public ICollection<Visit> Visits { get; set; } = new List<Visit>();
     }
 }
