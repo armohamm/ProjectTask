@@ -24,7 +24,7 @@ namespace ProjectTask.Services.DatabaseSeed
             {
                 var dto = new DoctorType()
                 {
-                    Name = "Все может вылечить",
+                    Name = "Лор",
                     LastEditedAt = DateTime.Now,
                     CreateDate = DateTime.Now,
                 };
@@ -32,7 +32,7 @@ namespace ProjectTask.Services.DatabaseSeed
                 UnitOfWork.Insert<DoctorType>(dto);
                 dto = new DoctorType()
                 {
-                    Name = "Ничего не может",
+                    Name = "Окулист",
                     LastEditedAt = DateTime.Now,
                     CreateDate = DateTime.Now,
                 };
@@ -43,9 +43,9 @@ namespace ProjectTask.Services.DatabaseSeed
             {
                 var doctor = new Doctor()
                 {
-                    Address = "Nur-Sultan",
+                    Address = "Нурсултан",
                     IIN = "123123456456",
-                    FirstName = "Aibolit",
+                    FirstName = "Айболит",
                     LastName = "Доктор1",
                     SurName = "Попов",
                     LastEditedAt = DateTime.Now,
@@ -56,9 +56,9 @@ namespace ProjectTask.Services.DatabaseSeed
 
                 doctor = new Doctor()
                 {
-                    Address = "Nur-Sultan",
+                    Address = "Нурсултан",
                     IIN = "123123456456",
-                    FirstName = "Aibolit",
+                    FirstName = "Айболат",
                     LastName = "Доктор2",
                     SurName = "Смирнов",
                     LastEditedAt = DateTime.Now,
@@ -73,10 +73,10 @@ namespace ProjectTask.Services.DatabaseSeed
             {
                 var dto = new Pacient()
                 {
-                    Address = "Nur-Sultan",
+                    Address = "Нурсултан",
                     IIN = "123123456456",
-                    FirstName = "Bolat",
-                    LastName = "Pacient",
+                    FirstName = "Дастан",
+                    LastName = "Пациент",
                     SurName = "Пациент1",
                     LastEditedAt = DateTime.Now,
                     CreateDate = DateTime.Now,
@@ -85,10 +85,10 @@ namespace ProjectTask.Services.DatabaseSeed
                 UnitOfWork.Insert<Pacient>(dto);
                 dto = new Pacient()
                 {
-                    Address = "Nur-Sultan",
+                    Address = "Нурсултан",
                     IIN = "123123456456",
-                    FirstName = "Bolat2",
-                    LastName = "Pacient2",
+                    FirstName = "Айдана",
+                    LastName = "Пациентова",
                     SurName = "Пациент2",
                     LastEditedAt = DateTime.Now,
                     CreateDate = DateTime.Now,
