@@ -81,7 +81,9 @@ namespace ProjectTask.WebUI.Controllers
         public IActionResult Delete(int id)
         {
             var dto = Service.GetDTO(id);
-
+            ViewData["doctors"] = DoctorService.GetDTOs();
+            ViewData["pacients"] = PacientService.GetDTOs();
+            ViewData["doctor_types"] = DoctorTypeService.GetDTOs();
             ViewData["Title"] = "Удалить карточку";
 
             return PartialView(dto);

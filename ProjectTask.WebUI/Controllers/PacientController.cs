@@ -17,11 +17,21 @@ namespace ProjectTask.WebUI.Controllers
 
         public IActionResult Index()
         {
-            var dtos = Service.GetDTOs();
-
             ViewData["Title"] = "Список пациентов";
 
-            return View(dtos);
+            return View();
+        }
+
+        public PartialViewResult IndexGrid(string search)
+        {
+            var dtos = Service.GetDTOs();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                dtos = dtos.Where(x => x.IIN.Contains(search) || x.SurName.Contains(search));
+            }
+
+            return PartialView(nameof(IndexGrid), dtos);
         }
 
         [HttpGet]

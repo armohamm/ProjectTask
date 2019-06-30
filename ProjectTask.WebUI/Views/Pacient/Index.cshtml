@@ -7,20 +7,19 @@
 
 @(await Html.PartialAsync("_Add"))
 
-@(Html
-    .Grid(Model)
-    .Build(columns =>
-    {
-        columns.Add(model => model.IIN);
-        columns.Add(model => model.SurName);
-        columns.Add(model => model.FirstName);
-        columns.Add(model => model.LastName);
-        columns.Add(model => model.PhoneNumber);
-        columns.Add(model => model.Address);
-        columns.Add(model => "<a href='" + Url.Action("Edit", new { model.Id }) + "'>Изменить</a>")
-            .Encoded(false);
-        columns.Add(model => "<a href='" + Url.Action("Delete", new { model.Id }) + "'>Удалить</a>")
-            .Encoded(false);
-    })
-    .ApplyDefaults()
-)
+<div class="active-pink-3 mb-4">
+    <input id="GridSearch" class="form-control " placeholder="Введите ИИН или Фамилию пациента" />
+</div>
+
+@Html.AjaxGrid(Url.Action("IndexGrid"))
+
+@section scripts{
+    <script>
+        document.getElementById('GridSearch').addEventListener('input', function () {
+            var grid = new MvcGrid(document.querySelector('.mvc-grid'));
+            grid.query.set('search', this.value);
+
+            grid.reload();
+        });
+    </script>
+}

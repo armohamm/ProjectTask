@@ -1,4 +1,68 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model VisitViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewData["Title"]</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form asp-action="Delete" class="form-group">
+    <div class="modal-body">
+        <input name="IsValid" type="hidden" value="True" />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DoctorId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DoctorId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PacientId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PacientId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DoctorTypeId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DoctorTypeId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Diagnosis)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Diagnosis)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Complaints)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Complaints)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.VisitDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.VisitDate)
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+            <input type="submit" value="Удалить" class="btn btn-danger" data-save="modal" />
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
